@@ -29,8 +29,13 @@ jobs:
         run: npm ci
       - name: Build site
         run: npm run build
-      - name: Add SPA route fallback
-        run: cp dist/index.html dist/404.html
+      - name: Prepare direct routes and SPA fallback
+        run: |
+          for route in menu sabores promociones nosotros cochabamba ubicaciones; do
+            mkdir -p "dist/${route}"
+            cp dist/index.html "dist/${route}/index.html"
+          done
+          cp dist/index.html dist/404.html
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
