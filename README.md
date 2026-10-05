@@ -23,4 +23,4 @@ No hay un script de pruebas configurado.
 
 ## Despliegue
 
-Publica el contenido generado en `dist/` en un hosting estático. El servidor de producción debe servir `index.html` como fallback para rutas de la aplicación (por ejemplo `/menu` y `/ubicaciones`), conservando la entrega normal de archivos existentes y sin reescribir endpoints API. Vite dev y `vite preview` ya aplican el fallback. No se encontró configuración de un proveedor de despliegue en el repositorio; define allí la regla de fallback antes de publicar. Para un dominio montado bajo un subdirectorio también habrá que configurar `base` en `vite.config.js`.
+El workflow de GitHub Actions publica automáticamente en GitHub Pages al subir cambios a `master`. El sitio se sirve desde `/cochala-bistro/`; el workflow crea `404.html` para que Pages cargue la SPA en URLs internas directas. Para probar localmente, ejecuta `npm run build` y `npm run preview`.

@@ -40,8 +40,14 @@ const routeSections = {
   '/ubicaciones': 'ubicaciones',
 }
 
+const appBase = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 function currentRoute() {
-  return window.location.pathname.replace(/\/$/, '') || '/'
+  let pathname = window.location.pathname
+  if (appBase && (pathname === appBase || pathname.startsWith(`${appBase}/`))) {
+    pathname = pathname.slice(appBase.length) || '/'
+  }
+  return pathname.replace(/\/$/, '') || '/'
 }
 
 function RouteNotFound({ onHome }) {
@@ -174,7 +180,8 @@ function App() {
   function navigate(path, { replace = false } = {}) {
     const nextRoute = path.replace(/\/$/, '') || '/'
     if (nextRoute === route) return
-    window.history[replace ? 'replaceState' : 'pushState']({}, '', nextRoute)
+    const destination = `${appBase}${nextRoute === '/' ? '/' : nextRoute}`
+    window.history[replace ? 'replaceState' : 'pushState']({}, '', destination)
     setRoute(nextRoute)
   }
 
